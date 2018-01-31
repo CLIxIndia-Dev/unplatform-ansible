@@ -1,0 +1,11 @@
+---
+- hosts: local
+  connection: local
+  become: yes
+  become_user: root
+  tasks:
+    - name: Install memcached service
+      apt:
+        name: memcached
+        state: installed
+        update_cache: yes

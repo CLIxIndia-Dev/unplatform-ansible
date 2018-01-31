@@ -1,0 +1,10 @@
+---
+- hosts: local
+  connection: local
+  become: yes
+  become_user: root
+  tasks:
+    - name: Install QBank
+      git:
+        repo: https://github.com/CLIxIndia-Dev/qbank-lite.git
+        dest: /var/www/webapps/qbank

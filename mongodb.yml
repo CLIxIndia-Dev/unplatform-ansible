@@ -1,0 +1,19 @@
+---
+- hosts: local
+  connection: local
+  become: yes
+  become_user: root
+  tasks:
+    - name: Import MongoDB public GPG key
+      apt_key:
+        keyserver: keyserver.ubuntu.com
+        id: 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5 
+    - name: Add MongoDB repository into sources list
+      apt_repository:
+        repo: deb https://repo.mongodb.org/apt/ubuntu {{ansible_distribution_release}}/mongodb-org/3.6 multiverse
+        state: present
+    - name: Install MongoDB
+      apt:
+        name: mongodb-org
+        state: installed
+        update_cache: yes

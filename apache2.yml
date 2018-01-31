@@ -1,0 +1,31 @@
+---
+- hosts: local
+  connection: local
+  become: yes
+  become_user: root
+  tasks:
+    - name: Install Apache2
+      apt:
+        name: apache2
+        state: installed
+        update_cache: true
+
+    - name: Enable mod_rewrite
+      apache2_module:
+        name: rewrite
+        state: present
+      notify:
+        - Restart Apache2
+
+    - name: Enable mod_wsgi
+      apache2_module:
+        name: wsgi
+        state: present
+      notify:
+        - Restart Apache2
+
+  handlers:
+    - name: Restart Apache2
+      service:
+        name: apache2
+        state: restarted

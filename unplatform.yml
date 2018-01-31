@@ -1,0 +1,4 @@
+---
+- import_playbook: apache2.yml
+- import_playbook: memcached.yml
+- import_playbook: mongodb.yml
