@@ -8,6 +8,10 @@
   become: yes
   become_user: root
   tasks:
+    - name: Disable default Apache site
+      command: a2dissite 000-default
+      notify:
+        - Restart Apache2
     - name: Enable Unplatform HTTP
       command: a2ensite unplatform.mit.edu
       args:
