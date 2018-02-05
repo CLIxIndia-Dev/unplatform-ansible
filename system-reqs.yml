@@ -4,6 +4,16 @@
   become: yes
   become_user: root
   tasks:
+    - name: Install libxml2-dev
+      apt:
+        name: libxml2-dev
+        state: installed
+        update_cache: true
+    - name: Install libxslt1-dev
+      apt:
+        name: libxslt1-dev
+        state: installed
+        update_cache: true
     - name: Install libssl-dev
       apt:
         name: libssl-dev
