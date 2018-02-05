@@ -20,3 +20,8 @@
         dest: /var/www/webapps/unplatform/unplatform.sqlite3
         mode: g+w
         group: www-data
+    - name: Checkout deploy branch
+      git:
+        repo: https://github.com/CLIxIndia-Dev/unplatform_v2.git
+        dest: /var/www/webapps/unplatform
+        version: deploy

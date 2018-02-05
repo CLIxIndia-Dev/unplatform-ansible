@@ -9,7 +9,6 @@
         repo: https://github.com/CLIxIndia-Dev/unplatform_v2.git
         dest: /var/www/webapps/unplatform
         version: deploy
-        force: yes
     - name: Create Unplatform2 static/ui directory
       file:
         path: /var/www/webapps/unplatform/static/ui
