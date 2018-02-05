@@ -1,0 +1,21 @@
+---
+- hosts: local
+  connection: local
+  become: yes
+  become_user: root
+  tasks:
+    - name: Install libssl-dev
+      apt:
+        name: libssl-dev
+        state: installed
+        update_cache: true
+    - name: Install libffi-dev
+      apt:
+        name: libffi-dev
+        state: installed
+        update_cache: true
+    - name: Install python-dev
+      ape:
+        name: python-dev
+        state: installed
+        update_cache: true

@@ -11,3 +11,10 @@
         state: forcereinstall
     - name: Provision Unplatform Node.js
       command: "{{ ansible_env.WORKON_HOME }}/unplatform/bin/nodeenv -p"
+    - name: Create the compile command from template
+      template:
+        src: unplatform_compile.j2
+        dest: "{{ ansible_env.WORKON_HOME }}/unplatform/compile"
+        mode: u+x
+    - name: Compile Unplatform
+      command: "{{ ansible_env.WORKON_HOME }}/unplatform/compile"

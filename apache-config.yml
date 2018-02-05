@@ -35,7 +35,7 @@
         regexp: '(\s+)Listen 443(\s+.*)?$'
         replace: '\1Listen 443\n\tListen 8080\2'
         backup: yes
-      when: test_port.stdout == 0
+      when: test_port.stdout == '0'
       notify:
         - Restart Apache2
 
