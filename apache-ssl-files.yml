@@ -6,13 +6,13 @@
   tasks:
     - name: Copy SSL Key file
       copy:
-        src: unplatform.mit.edu.key.vault
+        src: hostname.key.vault
         dest: /etc/ssl/private/unplatform.mit.edu.key
     - name: Copy SSL Cert file
       copy:
-        src: unplatform.mit.edu.crt.vault
+        src: hostname.crt.vault
         dest: /etc/ssl/certs/unplatform.mit.edu.crt
     - name: Copy intermediate chain file
       copy:
-        src: InCommon-chain.crt.vault
+        src: intermediate.crt.vault
         dest: /etc/ssl/certs/InCommon-chain.crt 
