@@ -1,0 +1,13 @@
+---
+# Install and manage unplatform build as local user
+- hosts: local
+  connection: local
+  tasks:
+    - name: Install Unplatform requirements
+      pip:
+        requirements: /var/www/webapps/unplatform/requirements.txt
+        virtualenv: "{{ ansible_env.WORKON_HOME }}/unplatform"
+        virtualenv_python: python2.7
+        state: forcereinstall
+    - name: Provision Unplatform Node.js
+      command: "{{ ansible_env.WORKON_HOME }}/unplatform/bin/nodeenv -p"

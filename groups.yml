@@ -1,0 +1,9 @@
+---
+- hosts: local
+  connection: local
+  become: yes
+  become_user: root
+  tasks:
+    - group:
+        name: www-data
+        state: present

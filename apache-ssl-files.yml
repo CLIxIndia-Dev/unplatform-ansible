@@ -1,0 +1,18 @@
+---
+- hosts: local
+  connection: local
+  become: yes
+  become_user: root
+  tasks:
+    - name: Copy SSL Key file
+      copy:
+        src: unplatform.mit.edu.key.vault
+        dest: /etc/ssl/private/unplatform.mit.edu.key
+    - name: Copy SSL Cert file
+      copy:
+        src: unplatform.mit.edu.crt.vault
+        dest: /etc/ssl/certs/unplatform.mit.edu.crt
+    - name: Copy intermediate chain file
+      copy:
+        src: InCommon-chain.crt.vault
+        dest: /etc/ssl/certs/InCommon-chain.crt 

@@ -17,6 +17,13 @@
       notify:
         - Restart Apache2
 
+    - name: Enable mod_ssl
+      apache2_module:
+        name: ssl
+        state: present
+      notify:
+        - Restart Apache2
+
     - name: Enable mod_wsgi
       apache2_module:
         name: wsgi

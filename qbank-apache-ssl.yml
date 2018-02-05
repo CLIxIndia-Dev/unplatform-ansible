@@ -1,0 +1,16 @@
+---
+- hosts: local
+  connection: local
+  become: yes
+  become_user: root
+  vars:
+    http_port: 8080
+    domain: unplatform.mit.edu
+    log: qbank.mit.edu
+    admin: clix-tech@mit.edu
+    app_name: qbank
+  tasks:
+    - name: Create HTTPS site file
+      template:
+        src: vhost_ssl.conf.j2
+        dest: /etc/apache2/sites-available/qbank.mit.edu-ssl.conf

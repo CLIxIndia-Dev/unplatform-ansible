@@ -1,0 +1,11 @@
+---
+- hosts: local
+  connection: local
+  become: yes
+  become_user: root
+  tasks:
+    - name: Adding existing user '{{ ansible_user }}' to apache group
+      user:
+        name: "{{ ansible_user }}"
+        groups: www-data
+        append: yes

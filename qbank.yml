@@ -4,7 +4,27 @@
   become: yes
   become_user: root
   tasks:
-    - name: Install QBank
+    - name: Clone QBank
       git:
         repo: https://github.com/CLIxIndia-Dev/qbank-lite.git
         dest: /var/www/webapps/qbank
+        version: feature/cs/ec2
+    - name: Change QBank directory owner and group
+      file:
+        dest: /var/www/webapps/qbank
+        owner: "{{ ansible_user }}"
+        group: www-data
+        recurse: yes
+    - name: Install virtualenv
+      pip:
+        name: virtualenv
+        state: present
+    - name: Make virtualenv directory
+      file:
+        dest: /usr/local/.virtualenvs/qbank
+        owner: "{{ ansible_user }}"
+        group: www-data
+        mode: g+w
+        state: directory
+- import_playbook: qbank-install.yml
+- import_playbook: qbank-apache-ssl.yml

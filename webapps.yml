@@ -1,0 +1,11 @@
+---
+- hosts: local
+  connection: local
+  become: yes
+  become_user: root
+  tasks:
+    - name: Set webapps permissions and group
+      file:
+        path: /var/www/webapps
+        group: www-data
+        mode: g+w

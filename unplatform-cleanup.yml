@@ -1,0 +1,22 @@
+---
+# removes the unplatform bundle.zip file, which just
+#   takes up space
+- hosts: local
+  connection: local
+  tasks:
+    - name: Remove Unplatform bundled zip file
+      file:
+        path: "{{ item }}"
+        state: absent
+      with_fileglob: /var/www/webapps/unplatform/bundle/*.zip
+    - name: Copy SQLite database to project root
+      copy:
+        src: /var/www/webapps/unplatform/bundle/unplatform.sqlite3
+        dest: /var/www/webapps/unplatform/unplatform.sqlite3
+    - name: Give group write access to SQLite database
+      become: yes
+      become_user: root
+      file:
+        dest: /var/www/webapps/unplatform/unplatform.sqlite3
+        mode: g+w
+        group: www-data

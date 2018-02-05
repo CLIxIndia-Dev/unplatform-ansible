@@ -1,0 +1,46 @@
+---
+- import_playbook: qbank-apache-ssl.yml
+- import_playbook: unplatform-apache.yml
+- import_playbook: unplatform-apache-ssl.yml
+- import_playbook: apache-ssl-files.yml
+- hosts: local
+  connection: local
+  become: yes
+  become_user: root
+  tasks:
+    - name: Enable Unplatform HTTP
+      command: a2ensite unplatform.mit.edu
+      args:
+        creates: /etc/apache2/sites-enabled/unplatform.mit.edu.conf
+      notify:
+        - Restart Apache2
+    - name: Enable Unplatform HTTPS
+      command: a2ensite unplatform.mit.edu-ssl
+      args:
+        creates: /etc/apache2/sites-enabled/unplatform.mit.edu-ssl.conf
+      notify:
+        - Restart Apache2
+    - name: Enabled QBank HTTPS
+      command: a2ensite qbank.mit.edu-ssl
+      args:
+        creates: /etc/apache2/sites-enabled/qbank.mit.edu-ssl.conf
+      notify:
+        - Restart Apache2
+    - name: Test for open port 8080
+      shell: grep "8080" /etc/apache2/ports.conf | wc -l
+      register: test_port
+    - name: Open port 8080
+      replace:
+        path: /etc/apache2/ports.conf
+        regexp: '(\s+)Listen 443(\s+.*)?$'
+        replace: '\1Listen 443\n\tListen 8080\2'
+        backup: yes
+      when: test_port.stdout == 0
+      notify:
+        - Restart Apache2
+
+  handlers:
+    - name: Restart Apache2
+      service:
+        name: apache2
+        state: restarted

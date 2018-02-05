@@ -1,4 +1,41 @@
 ---
-- import_playbook: apache2.yml
-- import_playbook: memcached.yml
-- import_playbook: mongodb.yml
+- hosts: local
+  connection: local
+  become: yes
+  become_user: root
+  tasks:
+    - name: Clone Unplatform2
+      git:
+        repo: https://github.com/CLIxIndia-Dev/unplatform_v2.git
+        dest: /var/www/webapps/unplatform
+        version: deploy
+    - name: Create Unplatform2 static/ui directory
+      file:
+        path: /var/www/webapps/unplatform/static/ui
+        state: directory
+    - name: Change Unplatform2 directory owner and group
+      file:
+        dest: /var/www/webapps/unplatform
+        owner: "{{ ansible_user }}"
+        group: www-data 
+        mode: g+w
+        recurse: yes
+    - name: Create Unplatform2 html static directory
+      file:
+        path: /var/www/html/unplatform/static
+        state: directory
+    - name: Change Unplatform2 html static directory owner and group
+      file:
+        dest: /var/www/html/unplatform
+        owner: "{{ ansible_user }}"
+        group: www-data 
+        recurse: yes
+    - name: Install virtualenv
+      pip:
+        name: virtualenv
+        state: present
+- import_playbook: unplatform-install.yml
+- import_playbook: unplatform-cleanup.yml
+- import_playbook: unplatform-apache.yml
+- import_playbook: unplatform-apache-ssl.yml
+- import_playbook: unplatform-copy-static.yml

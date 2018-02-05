@@ -1,0 +1,13 @@
+---
+- hosts: local
+  connection: local
+  become: yes
+  become_user: root
+  tasks:
+    - name: Give Apache group write access to virtualenv
+      become: yes
+      become_user: root
+      file:
+        dest: /var/www/webapps/unplatform/unplatform.sqlite3
+        mode: g+w
+        group: www-data
