@@ -4,6 +4,7 @@
 - import_playbook: mongodb.yml
 - import_playbook: users.yml
 - import_playbook: groups.yml
+- import_playbook: system-reqs.yml
 - import_playbook: unplatform.yml
 - import_playbook: qbank.yml
 - import_playbook: webapps.yml

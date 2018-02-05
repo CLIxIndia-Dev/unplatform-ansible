@@ -24,6 +24,12 @@
       notify:
         - Restart Apache2
 
+    - name: Install mod_wsgi
+      apt:
+        name: libapache2-mod-wsgi
+        state: installed
+        update_cache: true
+
     - name: Enable mod_wsgi
       apache2_module:
         name: wsgi
