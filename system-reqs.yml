@@ -15,7 +15,7 @@
         state: installed
         update_cache: true
     - name: Install python-dev
-      ape:
+      apt:
         name: python-dev
         state: installed
         update_cache: true
