@@ -1,0 +1,15 @@
+---
+# Vars for packages -- compatible with Ubuntu / Debian
+apache_package_name: apache2
+apache_service_name: apache2
+
+memcached_package_name: memcached
+
+mongo_package_name: mongodb-org
+
+libxml2_package_name: libxml2-dev
+libxslt1_package_name: libxslt1-dev
+libssl_package_name: libssl-dev
+libffi_package_name: libffi-dev
+python_package_name: python-dev
+mod_wsgi_package_name: libapache2-mod-wsgi

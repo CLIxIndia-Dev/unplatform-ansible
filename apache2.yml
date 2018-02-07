@@ -5,8 +5,8 @@
   become_user: root
   tasks:
     - name: Install Apache2
-      apt:
-        name: apache2
+      package:
+        name: "{{ apache_package_name }}"
         state: installed
         update_cache: true
 
@@ -25,8 +25,8 @@
         - Restart Apache2
 
     - name: Install mod_wsgi
-      apt:
-        name: libapache2-mod-wsgi
+      package:
+        name: "{{ mod_wsgi_package_name }}"
         state: installed
         update_cache: true
 
@@ -40,5 +40,5 @@
   handlers:
     - name: Restart Apache2
       service:
-        name: apache2
+        name: "{{ apache_service_name }}" 
         state: restarted
