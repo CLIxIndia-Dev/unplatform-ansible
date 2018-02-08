@@ -15,3 +15,4 @@ libffi_package_name: libffi-dev
 python_package_name: python-dev
 mod_wsgi_package_name: libapache2-mod-wsgi
 mod_ssl_package_name: mod_ssl
+c_compiler_package_name: build-essential

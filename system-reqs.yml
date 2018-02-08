@@ -4,6 +4,11 @@
   become: yes
   become_user: root
   tasks:
+    - name: Install C compiler
+      package:
+        name: "{{ c_compiler_package_name }}"
+        state: installed
+        update_cache: true
     - name: Install libxml2-dev
       package:
         name: "{{ libxml2_package_name }}"
