@@ -7,5 +7,5 @@
     - name: Adding existing user '{{ ansible_user }}' to apache group
       user:
         name: "{{ ansible_user }}"
-        groups: www-data
+        groups: "{{ apache_group_name }}"
         append: yes

@@ -2,6 +2,7 @@
 # Vars for packages -- compatible with Ubuntu / Debian
 apache_package_name: apache2
 apache_service_name: apache2
+apache_group_name: www-data
 
 memcached_package_name: memcached
 
@@ -13,3 +14,4 @@ libssl_package_name: libssl-dev
 libffi_package_name: libffi-dev
 python_package_name: python-dev
 mod_wsgi_package_name: libapache2-mod-wsgi
+mod_ssl_package_name: mod_ssl
