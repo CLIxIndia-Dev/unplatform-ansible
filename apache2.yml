@@ -17,6 +17,12 @@
       notify:
         - Restart Apache2
 
+    - name: Install mod_ssl
+      package:
+        name: "{{ mod_ssl_package_name }}"
+        state: installed
+        update_cache: true
+
     - name: Enable mod_ssl
       apache2_module:
         name: ssl
