@@ -5,27 +5,27 @@
   become_user: root
   tasks:
     - name: Install libxml2-dev
-      apt:
-        name: libxml2-dev
+      package:
+        name: "{{ libxml2_package_name }}"
         state: installed
         update_cache: true
     - name: Install libxslt1-dev
-      apt:
-        name: libxslt1-dev
+      package:
+        name: "{{ libxslt1_package_name }}"
         state: installed
         update_cache: true
     - name: Install libssl-dev
-      apt:
-        name: libssl-dev
+      package:
+        name: "{{ libssl_package_name }}"
         state: installed
         update_cache: true
     - name: Install libffi-dev
-      apt:
-        name: libffi-dev
+      package:
+        name: "{{ libffi_package_name }}"
         state: installed
         update_cache: true
     - name: Install python-dev
-      apt:
-        name: python-dev
+      package:
+        name: "{{ python_package_name }}"
         state: installed
         update_cache: true

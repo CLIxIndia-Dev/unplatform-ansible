@@ -12,30 +12,65 @@
       command: a2dissite 000-default
       notify:
         - Restart Apache2
+      when: ansible_os_family == "Debian"
     - name: Enable Unplatform HTTP
       command: a2ensite unplatform.mit.edu
       args:
         creates: /etc/apache2/sites-enabled/unplatform.mit.edu.conf
       notify:
         - Restart Apache2
+      when: ansible_os_family == "Debian"
     - name: Enable Unplatform HTTPS
       command: a2ensite unplatform.mit.edu-ssl
       args:
         creates: /etc/apache2/sites-enabled/unplatform.mit.edu-ssl.conf
       notify:
         - Restart Apache2
+      when: ansible_os_family == "Debian"
     - name: Enabled QBank HTTPS
       command: a2ensite qbank.mit.edu-ssl
       args:
         creates: /etc/apache2/sites-enabled/qbank.mit.edu-ssl.conf
       notify:
         - Restart Apache2
+      when: ansible_os_family == "Debian"
+    - name: Disable default site 
+      file:
+        dest: /etc/httpd/sites-enabled/000-default.conf
+        state: absent
+      notify:
+        - Restart Apache2
+      when: ansible_os_family == "RedHat"
+    - name: Enabled Unplatform HTTP
+      file:
+        src: /etc/httpd/sites-available/unplatform.mit.edu.conf
+        dest: /etc/httpd/sites-enabled/unplatform.mit.edu.conf
+        state: link
+      notify:
+        - Restart Apache2
+      when: ansible_os_family == "RedHat"
+    - name: Enabled Unplatform HTTPS
+      file:
+        src: /etc/httpd/sites-available/unplatform.mit.edu-ssl.conf
+        dest: /etc/httpd/sites-enabled/unplatform.mit.edu-ssl.conf
+        state: link
+      notify:
+        - Restart Apache2
+      when: ansible_os_family == "RedHat"
+    - name: Enabled QBank HTTPS
+      file:
+        src: /etc/httpd/sites-available/qbank.mit.edu-ssl.conf
+        dest: /etc/httpd/sites-enabled/qbank.mit.edu-ssl.conf
+        state: link
+      notify:
+        - Restart Apache2
+      when: ansible_os_family == "RedHat"
     - name: Test for open port 8080
-      shell: grep "8080" /etc/apache2/ports.conf | wc -l
+      shell: "grep '8080' /etc/{{ apache_service_name }}/ports.conf | wc -l"
       register: test_port
     - name: Open port 8080
       replace:
-        path: /etc/apache2/ports.conf
+        path: "/etc/{{ apache_service_name }}/ports.conf"
         regexp: '(\s+)Listen 443(\s+.*)?$'
         replace: '\1Listen 443\n\tListen 8080\2'
         backup: yes
@@ -46,5 +81,5 @@
   handlers:
     - name: Restart Apache2
       service:
-        name: apache2
+        name: "{{ apache_service_name }}" 
         state: restarted
