@@ -10,7 +10,11 @@
     admin: clix-tech@mit.edu
     app_name: qbank
   tasks:
+    - name: Create sites-available directory
+      file:
+        path: "/etc/{{ apache_service_name }}/sites-available"
+        state: directory
     - name: Create HTTPS site file
       template:
         src: vhost_ssl.conf.j2
-        dest: /etc/apache2/sites-available/qbank.mit.edu-ssl.conf
+        dest: "/etc/{{ apache_service_name }}/sites-available/qbank.mit.edu-ssl.conf"

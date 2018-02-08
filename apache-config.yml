@@ -8,6 +8,10 @@
   become: yes
   become_user: root
   tasks:
+    - name: Create sites-enabled directory
+      file:
+        path: "/etc/{{ apache_service_name }}/sites-enabled"
+        state: directory
     - name: Disable default Apache site
       command: a2dissite 000-default
       notify:
