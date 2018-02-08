@@ -4,10 +4,15 @@
   become: yes
   become_user: root
   tasks:
+    - name: Create SSL key directory
+      file:
+        path: /etc/ssl/private
+        state: directory
     - name: Copy SSL Key file
       copy:
         src: hostname.key.vault
         dest: /etc/ssl/private/unplatform.mit.edu.key
+        mode: 0600
     - name: Copy SSL Cert file
       copy:
         src: hostname.crt.vault
