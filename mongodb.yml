@@ -8,12 +8,19 @@
       apt_key:
         keyserver: keyserver.ubuntu.com
         id: 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5 
+      when: ansible_os_family == "Debian"
     - name: Add MongoDB repository into sources list
       apt_repository:
         repo: deb https://repo.mongodb.org/apt/ubuntu {{ansible_distribution_release}}/mongodb-org/3.6 multiverse
         state: present
+      when: ansible_os_family == "Debian"
+    - name: Add MongoDB repository
+      template:
+        src: mongo-repo.j2
+        dest: /etc/yum.repos.d/mongodb-org-3.6.repo
+      when: ansible_os_family == "RedHat"
     - name: Install MongoDB
-      apt:
-        name: mongodb-org
+      package:
+        name: "{{ mongo_package_name }}"
         state: installed
         update_cache: yes

@@ -1,4 +1,14 @@
 ---
+- hosts: local
+  connection: local
+  tasks:
+    - name: Include variables
+      include_vars: "{{ item }}"
+      with_first_found:
+        - "vars/{{ ansible_distribution }}-{{ansible_distribution_major_version | int }}.yml"
+        - "vars/{{ ansible_distribution }}.yml"
+        - "vars/{{ ansible_os_family }}.yml"
+        - "vars/default.yml"
 - import_playbook: apache2.yml
 - import_playbook: memcached.yml
 - import_playbook: mongodb.yml

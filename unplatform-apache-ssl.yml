@@ -10,7 +10,11 @@
     admin: clix-tech@mit.edu
     app_name: unplatform 
   tasks:
+    - name: Create sites-available directory
+      file:
+        path: "/etc/{{ apache_service_name }}/sites-available"
+        state: directory
     - name: Create HTTP site file
       template:
         src: vhost_ssl.conf.j2
-        dest: "/etc/apache2/sites-available/{{ domain }}-ssl.conf"
+        dest: "/etc/{{ apache_service_name }}/sites-available/{{ domain }}-ssl.conf"

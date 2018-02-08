@@ -10,4 +10,4 @@
       file:
         dest: /var/www/webapps/unplatform/unplatform.sqlite3
         mode: g+w
-        group: www-data
+        group: "{{ apache_group_name }}" 

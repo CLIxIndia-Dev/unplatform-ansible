@@ -5,7 +5,7 @@
   become_user: root
   tasks:
     - name: Install memcached service
-      apt:
-        name: memcached
+      package:
+        name: "{{ memcached_package_name }}"
         state: installed
         update_cache: yes

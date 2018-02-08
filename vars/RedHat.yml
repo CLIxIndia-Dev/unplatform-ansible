@@ -1,0 +1,18 @@
+---
+# Vars for packages -- compatible with RedHat / CentOS
+apache_package_name: httpd 
+apache_service_name: httpd
+apache_group_name: apache
+
+memcached_package_name: memcached
+
+mongo_package_name: mongodb-org
+
+libxml2_package_name: libxml2-devel
+libxslt1_package_name: libxslt-devel
+libssl_package_name: openssl-devel
+libffi_package_name: libffi-devel
+python_package_name: python-devel
+mod_wsgi_package_name: mod_wsgi
+mod_ssl_package_name: mod_ssl
+c_compiler_package_name: gcc

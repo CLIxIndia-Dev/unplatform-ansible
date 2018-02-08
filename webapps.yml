@@ -7,5 +7,5 @@
     - name: Set webapps permissions and group
       file:
         path: /var/www/webapps
-        group: www-data
+        group: "{{ apache_group_name }}" 
         mode: g+w

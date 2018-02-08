@@ -13,7 +13,7 @@
       file:
         dest: /var/www/webapps/qbank
         owner: "{{ ansible_user }}"
-        group: www-data
+        group: "{{ apache_group_name }}" 
         recurse: yes
     - name: Install virtualenv
       pip:
@@ -23,7 +23,7 @@
       file:
         dest: /usr/local/.virtualenvs/qbank
         owner: "{{ ansible_user }}"
-        group: www-data
+        group: "{{ apache_group_name }}" 
         mode: g+w
         state: directory
 - import_playbook: qbank-install.yml
