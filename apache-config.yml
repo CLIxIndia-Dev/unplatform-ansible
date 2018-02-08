@@ -79,7 +79,7 @@
         regexp: '(\s+)Listen 443(\s+.*)?$'
         replace: '\1Listen 443\n\tListen 8080\2'
         backup: yes
-      when: test_port.stdout == '0' and ansible_os_family == "Debian"
+      when: ansible_os_family == "Debian" and test_port.stdout == '0'
       notify:
         - Restart Apache2
     - name: Test for open port 8080
@@ -89,10 +89,10 @@
     - name: Open port 8080
       replace:
         path: "/etc/{{ apache_service_name }}/conf.d/ssl.conf"
-        regexp: '(\s+Listen 443 https(\s+.*)?$'
+        regexp: '(\s+)Listen 443 https(\s+.*)?$'
         replace: '\1Listen 443 https\nListen 8080 https\2'
         backup: yes
-      when: test_port.stdout == '0' and ansible_os_family == "RedHat"
+      when: ansible_os_family == "RedHat" and test_port_rh.stdout == '0'
       notify:
         - Restart Apache2
       
