@@ -17,7 +17,7 @@
       file:
         dest: /var/www/webapps/unplatform
         owner: "{{ ansible_user }}"
-        group: www-data 
+        group: "{{ apache_group_name }}"
         mode: g+w
         recurse: yes
     - name: Create Unplatform2 html static directory
@@ -28,7 +28,7 @@
       file:
         dest: /var/www/html/unplatform
         owner: "{{ ansible_user }}"
-        group: www-data 
+        group: "{{ apache_group_name }}" 
         recurse: yes
     - name: Install virtualenv
       pip:
