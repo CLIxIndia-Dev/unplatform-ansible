@@ -71,6 +71,7 @@
       when: ansible_os_family == "RedHat"
     - name: Test for open port 8080
       shell: "grep '8080' /etc/{{ apache_service_name }}/ports.conf | wc -l"
+      when: ansible_os_family == "Debian"
       register: test_port
     - name: Open port 8080
       replace:
@@ -78,9 +79,23 @@
         regexp: '(\s+)Listen 443(\s+.*)?$'
         replace: '\1Listen 443\n\tListen 8080\2'
         backup: yes
-      when: test_port.stdout == '0'
+      when: test_port.stdout == '0' and ansible_os_family == "Debian"
       notify:
         - Restart Apache2
+    - name: Test for open port 8080
+      shell: "grep '8080' /etc/{{ apache_service_name }}/conf.d/ssl.conf | wc -l"
+      when: ansible_os_family == "RedHat"
+      register: test_port_rh
+    - name: Open port 8080
+      replace:
+        path: "/etc/{{ apache_service_name }}/conf.d/ssl.conf"
+        regexp: '(\s+Listen 443 https(\s+.*)?$'
+        replace: '\1Listen 443 https\nListen 8080 https\2'
+        backup: yes
+      when: test_port.stdout == '0' and ansible_os_family == "RedHat"
+      notify:
+        - Restart Apache2
+      
 
   handlers:
     - name: Restart Apache2
