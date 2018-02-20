@@ -16,3 +16,4 @@ python_package_name: python-devel
 mod_wsgi_package_name: mod_wsgi
 mod_ssl_package_name: mod_ssl
 c_compiler_package_name: gcc
+zip_package_name: zip

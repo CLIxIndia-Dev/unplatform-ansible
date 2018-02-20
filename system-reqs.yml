@@ -34,3 +34,8 @@
         name: "{{ python_package_name }}"
         state: installed
         update_cache: true
+    - name: Install zip
+      package:
+        name: "{{ zip_package_name }}"
+        state: installed
+        update_cache: true
