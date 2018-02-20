@@ -19,8 +19,8 @@
 		# modules, e.g.
 		#LogLevel info ssl:warn
 
-		ErrorLog ${APACHE_LOG_DIR}/{{ log }}-ssl-error.log
-		CustomLog ${APACHE_LOG_DIR}/{{ log }}-ssl-access.log combined
+		ErrorLog /var/log/{{ apache_service_name }}/{{ log }}-ssl-error.log
+		CustomLog /var/log/{{ apache_service_name }}/{{ log }}-ssl-access.log combined
 
 		# For most configuration files from conf-available/, which are
 		# enabled or disabled at a global level, it is possible to
@@ -139,7 +139,7 @@
 		# MSIE 7 and newer should be able to use keepalive
 		BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown
 
-		<Directory /var/www/webapps/{{ app_name }}>
+		<Directory /var/www/webapps/{{ app_name }}/>
 			Options Indexes FollowSymLinks Includes ExecCGI
 			AllowOverride All
 			Order deny,allow
