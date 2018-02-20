@@ -13,7 +13,7 @@
       file:
         dest: /var/www/webapps/qbank
         owner: "{{ ansible_user }}"
-        group: "{{ apache_group_name }}" 
+        group: "{{ apache_group_name }}"
         recurse: yes
     - name: Install virtualenv
       pip:
