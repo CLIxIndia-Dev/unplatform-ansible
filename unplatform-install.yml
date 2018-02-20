@@ -6,15 +6,15 @@
     - name: Install Unplatform requirements
       pip:
         requirements: /var/www/webapps/unplatform/requirements.txt
-        virtualenv: /var/www/.virtualenvs/unplatform
+        virtualenv: /usr/local/.virtualenvs/unplatform
         virtualenv_python: python2.7
         state: forcereinstall
     - name: Provision Unplatform Node.js
-      command: /var/www/.virtualenvs/unplatform/bin/nodeenv -p
+      command: /usr/local/.virtualenvs/unplatform/bin/nodeenv -p
     - name: Create the compile command from template
       template:
         src: unplatform_compile.j2
-        dest: /var/www/.virtualenvs/unplatform/compile
+        dest: /usr/local/.virtualenvs/unplatform/compile
         mode: u+x
     - name: Compile Unplatform
-      command: /var/www/.virtualenvs/unplatform/compile
+      command: /usr/local/.virtualenvs/unplatform/compile

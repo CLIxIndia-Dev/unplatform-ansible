@@ -28,12 +28,19 @@
       file:
         dest: /var/www/html/unplatform
         owner: "{{ ansible_user }}"
-        group: "{{ apache_group_name }}" 
+        group: "{{ apache_group_name }}"
         recurse: yes
     - name: Install virtualenv
       pip:
         name: virtualenv
         state: present
+    - name: Make virtualenv directory
+      file:
+        dest: /usr/local/.virtualenvs/unplatform
+        owner: "{{ ansible_user }}"
+        group: "{{ apache_group_name }}"
+        mode: g+w
+        state: directory
 - import_playbook: unplatform-install.yml
 - import_playbook: unplatform-cleanup.yml
 - import_playbook: unplatform-apache.yml
