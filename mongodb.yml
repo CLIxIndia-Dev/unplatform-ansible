@@ -7,7 +7,7 @@
     - name: Import MongoDB public GPG key
       apt_key:
         keyserver: keyserver.ubuntu.com
-        id: 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5 
+        id: 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
       when: ansible_os_family == "Debian"
     - name: Add MongoDB repository into sources list
       apt_repository:
@@ -24,3 +24,17 @@
         name: "{{ mongo_package_name }}"
         state: installed
         update_cache: yes
+      notify:
+        - Restart MongoDB
+    - name: Copy MongoDB conf file
+      copy:
+        src: mongod.conf.vault
+        dest: /etc/mongod.conf
+      notify:
+        - Restart MongoDB
+
+    handlers:
+      - name: Restart MongoDB
+        service:
+          name: "{{ mongo_service_name }}"
+          state: restarted
