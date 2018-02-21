@@ -16,3 +16,11 @@
       sefcontext:
         target: /var/www/tmp/CLIx/unplatform/unplatform.sqlite3
         setype: httpd_sys_rw_content_t
+    - name: Set SELinux type on unplatform config directory to read/write
+      sefcontext:
+        target: /var/www/html/unplatform/CLIx
+        setype: httpd_sys_rw_content_t
+    - name: Set SELinux type on qbank webapps directory to read/write
+      sefcontext:
+        target: /var/www/html/qbank/webapps
+        setype: httpd_sys_rw_content_t
