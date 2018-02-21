@@ -92,19 +92,21 @@
       when: ansible_os_family == "Debian" and test_port.stdout == '0'
       notify:
         - Restart Apache2
-    - name: Test for open port 8080
-      shell: "grep '8080' /etc/{{ apache_service_name }}/conf.d/ssl.conf | wc -l"
-      when: ansible_os_family == "RedHat"
-      register: test_port_rh
-    - name: Open port 8080
-      replace:
-        path: "/etc/{{ apache_service_name }}/conf.d/ssl.conf"
-        regexp: '(\s+)Listen 443 https(\s+.*)?$'
-        replace: '\1Listen 443 https\nListen 8080 https\2'
-        backup: yes
-      when: ansible_os_family == "RedHat" and test_port_rh.stdout == '0'
-      notify:
-        - Restart Apache2
+    # Do not need this for IS&T managed servers. Puppet config
+    #   required to open ports. Contact Ops instead.
+    # - name: Test for open port 8080
+    #   shell: "grep '8080' /etc/{{ apache_service_name }}/conf.d/ssl.conf | wc -l"
+    #   when: ansible_os_family == "RedHat"
+    #   register: test_port_rh
+    # - name: Open port 8080
+    #   replace:
+    #     path: "/etc/{{ apache_service_name }}/conf.d/ssl.conf"
+    #     regexp: '(\s+)Listen 443 https(\s+.*)?$'
+    #     replace: '\1Listen 443 https\nListen 8080 https\2'
+    #     backup: yes
+    #   when: ansible_os_family == "RedHat" and test_port_rh.stdout == '0'
+    #   notify:
+    #     - Restart Apache2
 
 
   handlers:
