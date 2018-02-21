@@ -2,6 +2,10 @@
 - hosts: local
   connection: local
   tasks:
+    - name: Clear out old static files
+      file:
+        path: /var/www/html/unplatform/static/
+        state: absent
     - name: Copy Unplatform static files
       synchronize:
         src: /var/www/webapps/unplatform/bundle/static/
