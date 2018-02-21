@@ -7,12 +7,12 @@
     - name: Set SELinux type on CLIx data directory to read/write
       sefcontext:
         target: /var/www/tmp/CLIx
-        setype: httpd_sys_script_rw_t
+        setype: httpd_sys_rw_content_t
     - name: Set SELinux type on CLIx unplatform data directory to read/write
       sefcontext:
         target: /var/www/tmp/CLIx/unplatform
-        setype: httpd_sys_script_rw_t
+        setype: httpd_sys_rw_content_t
     - name: Set SELinux type on unplatform sqlite3 file to read/write
       sefcontext:
         target: /var/www/tmp/CLIx/unplatform/unplatform.sqlite3
-        setype: httpd_sys_script_rw_t
+        setype: httpd_sys_rw_content_t
