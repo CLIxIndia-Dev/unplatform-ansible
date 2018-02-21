@@ -4,14 +4,14 @@
 		ServerAdmin {{ admin }}
 
 		DocumentRoot /var/www/html/{{ app_name }}
-                Alias /static /var/www/html/{{ app_name }}/static
+		Alias /static /var/www/html/{{ app_name }}/static
 
-                WSGIDaemonProcess {{ app_name }} python-home=/usr/local/.virtualenvs/{{ app_name }} python-path=/var/www/webapps/{{ app_name }} processes=4 threads=8
-                WSGIProcessGroup {{ app_name }}
-                WSGIApplicationGroup %{GLOBAL}
+		WSGIDaemonProcess {{ app_name }} python-home=/usr/local/.virtualenvs/{{ app_name }} python-path=/var/www/webapps/{{ app_name }} processes=4 threads=8
+		WSGIProcessGroup {{ app_name }}
+		WSGIApplicationGroup %{GLOBAL}
 
-                WSGIScriptAlias / /var/www/webapps/{{ app_name }}/main.py/ process-group={{ app_name }}
-                AddType text/html .py
+		WSGIScriptAlias / /var/www/webapps/{{ app_name }}/main.py/ process-group={{ app_name }}
+		AddType text/html .py
 
 		# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
 		# error, crit, alert, emerg.
@@ -146,11 +146,11 @@
 			Allow from all
 		</Directory>
 
-                <Directory /var/www/html/{{ app_name }}/static>
-                        Order allow,deny
-                        Allow from all
-                </Directory>
+		<Directory /var/www/html/{{ app_name }}/static>
+			Order allow,deny
+			Allow from all
+		</Directory>
 
-                SetOutputFilter DEFLATE
+		SetOutputFilter DEFLATE
 	</VirtualHost>
 </IfModule>
