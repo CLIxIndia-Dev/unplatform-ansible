@@ -1,12 +1,12 @@
 <IfModule mod_ssl.c>
 	<VirtualHost *:{{ http_port }}>
-		ServerName {{ domain }} 
+		ServerName {{ domain }}
 		ServerAdmin {{ admin }}
 
 		DocumentRoot /var/www/html/{{ app_name }}
                 Alias /static /var/www/html/{{ app_name }}/static
 
-                WSGIDaemonProcess {{ app_name }} python-home=/home/{{ ansible_user }}/.virtualenvs/{{ app_name }} python-path=/var/www/webapps/{{ app_name }} processes=4 threads=8
+                WSGIDaemonProcess {{ app_name }} python-home=/usr/local/.virtualenvs/{{ app_name }} python-path=/var/www/webapps/{{ app_name }} processes=4 threads=8
                 WSGIProcessGroup {{ app_name }}
                 WSGIApplicationGroup %{GLOBAL}
 
@@ -150,7 +150,7 @@
                         Order allow,deny
                         Allow from all
                 </Directory>
-                
+
                 SetOutputFilter DEFLATE
 	</VirtualHost>
 </IfModule>
