@@ -4,19 +4,15 @@
   become: yes
   become_user: root
   tasks:
-    - name: Set SELinux type on webapps to read/write
-      sefcontext:
-        target: /var/www/webapps
-        setype: httpd_sys_script_rw_t
     - name: Set SELinux type on CLIx data directory to read/write
       sefcontext:
-        target: /var/www/webapps/CLIx
+        target: /var/www/tmp/CLIx
         setype: httpd_sys_script_rw_t
     - name: Set SELinux type on CLIx unplatform data directory to read/write
       sefcontext:
-        target: /var/www/webapps/CLIx/unplatform
+        target: /var/www/tmp/CLIx/unplatform
         setype: httpd_sys_script_rw_t
     - name: Set SELinux type on unplatform sqlite3 file to read/write
       sefcontext:
-        target: /var/www/webapps/CLIx/unplatform/unplatform.sqlite3
+        target: /var/www/tmp/CLIx/unplatform/unplatform.sqlite3
         setype: httpd_sys_script_rw_t

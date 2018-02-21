@@ -12,12 +12,12 @@
     - name: Copy SQLite database
       copy:
         src: /var/www/webapps/unplatform/bundle/unplatform.sqlite3
-        dest: /var/www/webapps/CLIx/unplatform/unplatform.sqlite3
+        dest: /var/www/tmp/CLIx/unplatform/unplatform.sqlite3
     - name: Give group write access to SQLite database
       become: yes
       become_user: root
       file:
-        dest: /var/www/webapps/CLIx/unplatform/unplatform.sqlite3
+        dest: /var/www/tmp/CLIx/unplatform/unplatform.sqlite3
         mode: g+w
         group: "{{ apache_group_name }}"
     - name: Checkout deploy branch (post-bundle)
