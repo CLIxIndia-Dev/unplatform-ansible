@@ -20,3 +20,4 @@
 - import_playbook: webapps.yml
 - import_playbook: apache-ssl-files.yml
 - import_playbook: apache-config.yml
+- import_playbook: selinux.yml

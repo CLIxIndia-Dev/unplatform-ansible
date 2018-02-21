@@ -6,7 +6,3 @@
       synchronize:
         src: /var/www/webapps/unplatform/bundle/static/
         dest: /var/www/html/unplatform/static
-    - name: Copy Unplatform UI files
-      synchronize:
-        src: /var/www/webapps/unplatform/bundle/static/ui/
-        dest: /var/www/webapps/unplatform/static/ui

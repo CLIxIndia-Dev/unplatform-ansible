@@ -8,6 +8,6 @@
       become: yes
       become_user: root
       file:
-        dest: /var/www/webapps/unplatform/unplatform.sqlite3
+        dest: /var/www/webapps/CLIx/unplatform/unplatform.sqlite3
         mode: g+w
-        group: "{{ apache_group_name }}" 
+        group: "{{ apache_group_name }}"
