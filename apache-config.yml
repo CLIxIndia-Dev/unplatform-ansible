@@ -71,14 +71,15 @@
       notify:
         - Restart Apache2
       when: ansible_os_family == "RedHat"
-    - name: Enabled QBank HTTPS
-      file:
-        src: /etc/httpd/sites-available/qbank.mit.edu-ssl.conf
-        dest: /etc/httpd/local.d/qbank.mit.edu-ssl.conf
-        state: link
-      notify:
-        - Restart Apache2
-      when: ansible_os_family == "RedHat"
+    # This is currently managed via Puppet
+    # - name: Enabled QBank HTTPS
+    #   file:
+    #     src: /etc/httpd/sites-available/qbank.mit.edu-ssl.conf
+    #     dest: /etc/httpd/local.d/qbank.mit.edu-ssl.conf
+    #     state: link
+    #   notify:
+    #     - Restart Apache2
+    #   when: ansible_os_family == "RedHat"
     - name: Test for open port 8080
       shell: "grep '8080' /etc/{{ apache_service_name }}/ports.conf | wc -l"
       when: ansible_os_family == "Debian"
