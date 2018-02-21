@@ -21,4 +21,3 @@
 - import_playbook: apache-ssl-files.yml
 # Handled by Puppet / IS&T
 # - import_playbook: apache-config.yml
-- import_playbook: selinux.yml
