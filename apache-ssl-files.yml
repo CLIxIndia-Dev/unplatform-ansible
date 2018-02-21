@@ -8,16 +8,25 @@
       file:
         path: /etc/ssl/private
         state: directory
-    - name: Copy SSL Key file
+    - name: Copy main SSL Key file
       copy:
         src: hostname.key.vault
         dest: /etc/ssl/private/unplatform.mit.edu.key
         mode: 0600
-    - name: Copy SSL Cert file
+    - name: Copy main SSL Cert file
       copy:
         src: hostname.crt.vault
         dest: /etc/ssl/certs/unplatform.mit.edu.crt
+    - name: Copy secondary SSL Key file
+      copy:
+        src: author-hostname.key.vault
+        dest: /etc/ssl/private/unplatform-authoring.mit.edu.key
+        mode: 0600
+    - name: Copy secondary SSL Cert file
+      copy:
+        src: author-hostname.crt.vault
+        dest: /etc/ssl/certs/unplatform-authoring.mit.edu.crt
     - name: Copy intermediate chain file
       copy:
         src: intermediate.crt.vault
-        dest: /etc/ssl/certs/InCommon-chain.crt 
+        dest: /etc/ssl/certs/InCommon-chain.crt
