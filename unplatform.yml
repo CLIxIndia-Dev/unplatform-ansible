@@ -64,8 +64,8 @@
         state: directory
 - import_playbook: unplatform-install.yml
 - import_playbook: unplatform-cleanup.yml
-- import_playbook: unplatform-apache.yml
-- import_playbook: unplatform-apache-ssl.yml
-- import_playbook: unplatform-authoring-apache.yml
-- import_playbook: unplatform-authoring-apache-ssl.yml
+# - import_playbook: unplatform-apache.yml
+# - import_playbook: unplatform-apache-ssl.yml
+# - import_playbook: unplatform-authoring-apache.yml
+# - import_playbook: unplatform-authoring-apache-ssl.yml
 - import_playbook: unplatform-copy-static.yml
