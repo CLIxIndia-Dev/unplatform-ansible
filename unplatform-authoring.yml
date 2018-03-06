@@ -6,12 +6,12 @@
   tasks:
     - name: Create unplatform-authoring folder
       file:
-        path: /var/www/html/unplatform-authoring/static/oea
+        path: /var/www/html/unplatform-authoring/static
         state: directory
     - name: Copy OEA files
       synchronize:
         src: /var/www/html/unplatform/static/oea
-        dest: /var/www/html/unplatform-authoring/static/oea
+        dest: /var/www/html/unplatform-authoring/static
     - name: Copy author.html into DirectoryRoot
       copy:
         src: /var/www/html/unplatform-authoring/static/oea/author.html
