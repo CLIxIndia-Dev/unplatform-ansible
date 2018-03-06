@@ -9,7 +9,7 @@
         - "vars/{{ ansible_distribution }}.yml"
         - "vars/{{ ansible_os_family }}.yml"
         - "vars/default.yml"
-- import_playbook: apache2.yml
+# - import_playbook: apache2.yml
 - import_playbook: memcached.yml
 - import_playbook: mongodb.yml
 - import_playbook: users.yml
@@ -18,6 +18,7 @@
 - import_playbook: unplatform.yml
 - import_playbook: qbank.yml
 - import_playbook: webapps.yml
-- import_playbook: apache-ssl-files.yml
+- import_playbook: unplatform-authoring.yml
+# - import_playbook: apache-ssl-files.yml
 # Handled by Puppet / IS&T
 # - import_playbook: apache-config.yml

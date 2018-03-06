@@ -8,7 +8,7 @@
       git:
         repo: https://github.com/CLIxIndia-Dev/qbank-lite.git
         dest: /var/www/webapps/qbank
-        version: unplatform-dev-app-1
+        version: unplatform-prod-app-1
     - name: Change QBank directory owner and group
       file:
         dest: /var/www/webapps/qbank
