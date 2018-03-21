@@ -8,10 +8,20 @@
   become: yes
   become_user: root
   tasks:
+    - name: Create sites-available directory
+      file:
+        path: "/etc/{{ apache_service_name }}/sites-available"
+        state: directory
     - name: Create sites-enabled directory
       file:
         path: "/etc/{{ apache_service_name }}/sites-enabled"
         state: directory
+      when: ansible_os_family == "Debian"
+    - name: Create local.d directory
+      file:
+        path: "/etc/{{ apache_service_name }}/local.d"
+        state: directory
+      when: ansible_os_family == "RedHat"
     - name: Disable default Apache site
       command: a2dissite 000-default
       notify:
@@ -38,9 +48,9 @@
       notify:
         - Restart Apache2
       when: ansible_os_family == "Debian"
-    - name: Disable default site 
+    - name: Disable default site
       file:
-        dest: /etc/httpd/sites-enabled/000-default.conf
+        dest: /etc/httpd/local.d/000-default.conf
         state: absent
       notify:
         - Restart Apache2
@@ -48,7 +58,7 @@
     - name: Enabled Unplatform HTTP
       file:
         src: /etc/httpd/sites-available/unplatform.mit.edu.conf
-        dest: /etc/httpd/sites-enabled/unplatform.mit.edu.conf
+        dest: /etc/httpd/local.d/unplatform.mit.edu.conf
         state: link
       notify:
         - Restart Apache2
@@ -56,19 +66,20 @@
     - name: Enabled Unplatform HTTPS
       file:
         src: /etc/httpd/sites-available/unplatform.mit.edu-ssl.conf
-        dest: /etc/httpd/sites-enabled/unplatform.mit.edu-ssl.conf
+        dest: /etc/httpd/local.d/unplatform.mit.edu-ssl.conf
         state: link
       notify:
         - Restart Apache2
       when: ansible_os_family == "RedHat"
-    - name: Enabled QBank HTTPS
-      file:
-        src: /etc/httpd/sites-available/qbank.mit.edu-ssl.conf
-        dest: /etc/httpd/sites-enabled/qbank.mit.edu-ssl.conf
-        state: link
-      notify:
-        - Restart Apache2
-      when: ansible_os_family == "RedHat"
+    # This is currently managed via Puppet
+    # - name: Enabled QBank HTTPS
+    #   file:
+    #     src: /etc/httpd/sites-available/qbank.mit.edu-ssl.conf
+    #     dest: /etc/httpd/local.d/qbank.mit.edu-ssl.conf
+    #     state: link
+    #   notify:
+    #     - Restart Apache2
+    #   when: ansible_os_family == "RedHat"
     - name: Test for open port 8080
       shell: "grep '8080' /etc/{{ apache_service_name }}/ports.conf | wc -l"
       when: ansible_os_family == "Debian"
@@ -82,23 +93,25 @@
       when: ansible_os_family == "Debian" and test_port.stdout == '0'
       notify:
         - Restart Apache2
-    - name: Test for open port 8080
-      shell: "grep '8080' /etc/{{ apache_service_name }}/conf.d/ssl.conf | wc -l"
-      when: ansible_os_family == "RedHat"
-      register: test_port_rh
-    - name: Open port 8080
-      replace:
-        path: "/etc/{{ apache_service_name }}/conf.d/ssl.conf"
-        regexp: '(\s+)Listen 443 https(\s+.*)?$'
-        replace: '\1Listen 443 https\nListen 8080 https\2'
-        backup: yes
-      when: ansible_os_family == "RedHat" and test_port_rh.stdout == '0'
-      notify:
-        - Restart Apache2
-      
+    # Do not need this for IS&T managed servers. Puppet config
+    #   required to open ports. Contact Ops instead.
+    # - name: Test for open port 8080
+    #   shell: "grep '8080' /etc/{{ apache_service_name }}/conf.d/ssl.conf | wc -l"
+    #   when: ansible_os_family == "RedHat"
+    #   register: test_port_rh
+    # - name: Open port 8080
+    #   replace:
+    #     path: "/etc/{{ apache_service_name }}/conf.d/ssl.conf"
+    #     regexp: '(\s+)Listen 443 https(\s+.*)?$'
+    #     replace: '\1Listen 443 https\nListen 8080 https\2'
+    #     backup: yes
+    #   when: ansible_os_family == "RedHat" and test_port_rh.stdout == '0'
+    #   notify:
+    #     - Restart Apache2
+
 
   handlers:
     - name: Restart Apache2
       service:
-        name: "{{ apache_service_name }}" 
+        name: "{{ apache_service_name }}"
         state: restarted

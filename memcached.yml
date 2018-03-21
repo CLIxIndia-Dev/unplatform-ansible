@@ -9,3 +9,11 @@
         name: "{{ memcached_package_name }}"
         state: installed
         update_cache: yes
+      notify:
+        - Restart Memcached
+
+    handlers:
+      - name: Restart Memcached
+        service:
+          name: "{{ memcached_service_name }}" 
+          state: restarted

@@ -9,18 +9,18 @@
         path: "{{ item }}"
         state: absent
       with_fileglob: /var/www/webapps/unplatform/bundle/*.zip
-    - name: Copy SQLite database to project root
+    - name: Copy SQLite database
       copy:
         src: /var/www/webapps/unplatform/bundle/unplatform.sqlite3
-        dest: /var/www/webapps/unplatform/unplatform.sqlite3
+        dest: /var/www/tmp/CLIx/unplatform/unplatform.sqlite3
     - name: Give group write access to SQLite database
       become: yes
       become_user: root
       file:
-        dest: /var/www/webapps/unplatform/unplatform.sqlite3
+        dest: /var/www/tmp/CLIx/unplatform/unplatform.sqlite3
         mode: g+w
-        group: "{{ apache_group_name }}" 
-    - name: Checkout deploy branch
+        group: "{{ apache_group_name }}"
+    - name: Checkout deploy branch (post-bundle)
       git:
         repo: https://github.com/CLIxIndia-Dev/unplatform_v2.git
         dest: /var/www/webapps/unplatform

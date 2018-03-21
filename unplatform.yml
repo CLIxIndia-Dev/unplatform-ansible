@@ -28,14 +28,44 @@
       file:
         dest: /var/www/html/unplatform
         owner: "{{ ansible_user }}"
-        group: "{{ apache_group_name }}" 
+        group: "{{ apache_group_name }}"
         recurse: yes
     - name: Install virtualenv
       pip:
         name: virtualenv
         state: present
+    - name: Make virtualenv home
+      file:
+        dest: /usr/local/.virtualenvs
+        owner: "{{ ansible_user }}"
+        group: "{{ apache_group_name }}"
+        mode: g+w
+        state: directory
+    - name: Make unplatform virtualenv directory
+      file:
+        dest: /usr/local/.virtualenvs/unplatform
+        owner: "{{ ansible_user }}"
+        group: "{{ apache_group_name }}"
+        mode: g+w
+        state: directory
+    - name: Create data store directory
+      file:
+        dest: /var/www/tmp/CLIx/unplatform
+        owner: "{{ ansible_user }}"
+        group: "{{ apache_group_name }}"
+        mode: g+w
+        state: directory
+    - name: Create unplatform JSON file directory
+      file:
+        dest: /var/www/html/unplatform/CLIx
+        owner: "{{ ansible_user }}"
+        group: "{{ apache_group_name }}"
+        mode: g+w
+        state: directory
 - import_playbook: unplatform-install.yml
 - import_playbook: unplatform-cleanup.yml
-- import_playbook: unplatform-apache.yml
-- import_playbook: unplatform-apache-ssl.yml
+# - import_playbook: unplatform-apache.yml
+# - import_playbook: unplatform-apache-ssl.yml
+# - import_playbook: unplatform-authoring-apache.yml
+# - import_playbook: unplatform-authoring-apache-ssl.yml
 - import_playbook: unplatform-copy-static.yml

@@ -2,11 +2,15 @@
 - hosts: local
   connection: local
   tasks:
+    - name: Clear out old static files
+      file:
+        path: /var/www/html/unplatform/static/
+        state: absent
     - name: Copy Unplatform static files
       synchronize:
         src: /var/www/webapps/unplatform/bundle/static/
         dest: /var/www/html/unplatform/static
-    - name: Copy Unplatform UI files
+    - name: Copy Unplatform module tool wrapper files
       synchronize:
-        src: /var/www/webapps/unplatform/bundle/static/ui/
-        dest: /var/www/webapps/unplatform/static/ui
+        src: /var/www/webapps/unplatform/bundle/modules/
+        dest: /var/www/html/unplatform/modules

@@ -6,6 +6,6 @@
     - name: Install QBank requirements
       pip:
         requirements: /var/www/webapps/qbank/requirements.txt
-        virtualenv: "/home/{{ ansible_user }}/.virtualenvs/qbank"
+        virtualenv: /usr/local/.virtualenvs/qbank
         virtualenv_python: python2.7
         state: forcereinstall

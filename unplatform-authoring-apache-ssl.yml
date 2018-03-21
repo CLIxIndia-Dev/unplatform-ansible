@@ -1,0 +1,21 @@
+---
+- hosts: local
+  connection: local
+  become: yes
+  become_user: root
+  vars:
+    http_port: 443
+    domain: unplatform-authoring.mit.edu
+    log: unplatform-authoring.mit.edu
+    admin: clix-tech@mit.edu
+    app_name: unplatform
+    app_index: author.html
+  tasks:
+    - name: Create sites-available directory
+      file:
+        path: "/etc/{{ apache_service_name }}/sites-available"
+        state: directory
+    - name: Create HTTP site file
+      template:
+        src: vhost_ssl_simple.conf.j2
+        dest: "/etc/{{ apache_service_name }}/sites-available/{{ domain }}-ssl.conf"
